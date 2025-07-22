@@ -15,9 +15,16 @@ load_dotenv()
 
 # --- 1. CONFIGURAÇÃO DA APLICAÇÃO ---
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'uma-chave-secreta-para-desenvolvimento')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///instance/database.db')
+# Garante que a pasta 'instance' exista
+try:
+    os.makedirs(app.instance_path)
+except OSError:
+    pass
+
+# CONFIGURAÇÃO CORRETA E CENTRALIZADA
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(app.instance_path, 'database.db')}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = '77cd9b0684a5113200d4810755f4a9e5455a3c860df49cf7'
 
 # --- CONFIGURAÇÕES PARA ENVIO DE E-MAIL ---
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.googlemail.com')
