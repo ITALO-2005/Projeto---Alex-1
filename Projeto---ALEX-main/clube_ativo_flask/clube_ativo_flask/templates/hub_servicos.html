@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Hub de Serviços - Hub Comunitário{% endblock %}
+
+{% block content %}
+    <h1 class="page-header">Hub de Serviços</h1>
+    <p class="lead text-muted" style="margin-top: -1rem; margin-bottom: 2rem;">Acesso rápido a informações essenciais do campus.</p>
+
+    <div class="hub-grid">
+        <div class="card hub-card">
+            <div class="hub-card-icon">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h3>Cardápio do RU</h3>
+            <p>Veja o cardápio da semana do Restaurante Universitário. (Funcionalidade em breve)</p>
+            <a href="#" class="btn btn-secondary" disabled>Ver Cardápio</a>
+        </div>
+
+        <div class="card hub-card">
+            <div class="hub-card-icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <h3>Acervo da Biblioteca</h3>
+            <p>Acesse o sistema da biblioteca para pesquisar livros e fazer reservas. (Funcionalidade em breve)</p>
+            <a href="#" class="btn btn-secondary" disabled>Aceder à Biblioteca</a>
+        </div>
+
+        <div class="card hub-card">
+            <div class="hub-card-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Calendário de Eventos</h3>
+            <p>Fique por dentro dos próximos eventos e atividades no campus.</p>
+            {% for evento in eventos_futuros %}
+                <a href="{{ url_for('detalhe_evento', evento_id=evento.id) }}" class="event-link">{{ evento.titulo }}</a>
+            {% endfor %}
+            <a href="{{ url_for('eventos') }}" class="btn" style="margin-top: 1rem;">Ver Todos os Eventos</a>
+        </div>
+    </div>
+{% endblock %}
