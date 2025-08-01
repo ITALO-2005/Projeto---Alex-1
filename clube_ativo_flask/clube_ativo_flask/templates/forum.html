@@ -11,10 +11,12 @@
             <a href="{{ url_for('detalhe_topico', topico_id=topico.id) }}" class="card topic-item">
                 <div class="topic-main">
                     <h4>{{ topico.titulo }}</h4>
-                    <p class="text-muted">Iniciado por {{ topico.autor.username }} em {{ topico.data_criacao.strftime('%d/%m/%Y') }}</p>
+                    <!-- Acesso por chave -->
+                    <p class="text-muted">Iniciado por {{ topico['autor_username'] }} em {{ topico['data_criacao'] | format_date }}</p>
                 </div>
                 <div class="topic-meta">
-                    <span><i class="fas fa-comments"></i> {{ topico.posts.count() }} Respostas</span>
+                    <!-- Acesso por chave -->
+                    <span><i class="fas fa-comments"></i> {{ topico['total_posts'] }} Respostas</span>
                     <i class="fas fa-chevron-right"></i>
                 </div>
             </a>

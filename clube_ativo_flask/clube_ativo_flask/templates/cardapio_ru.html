@@ -4,6 +4,7 @@
 {% block content %}
 <h1 class="page-header">Cardápio do Restaurante Universitário</h1>
 <p class="lead text-muted" style="margin-top: -1rem; margin-bottom: 2rem;">
+    <!-- CORRIGIDO: Usando a variável timedelta do contexto -->
     Semana de {{ start_of_week.strftime('%d/%m') }} a {{ (start_of_week + timedelta(days=6)).strftime('%d/%m/%Y') }}
 </p>
 

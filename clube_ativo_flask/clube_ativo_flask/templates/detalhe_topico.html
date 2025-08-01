@@ -8,10 +8,11 @@
 
     <div class="card topic-post">
         <div class="post-header">
-            <img src="{{ url_for('static', filename='profile_pics/' + topico.autor.image_file) }}" class="post-author-img">
+            <!-- Acedemos aos dados do autor através de chaves -->
+            <img src="{{ url_for('static', filename='profile_pics/' + topico['autor_image_file']) }}" class="post-author-img">
             <div class="post-author-info">
-                <strong>{{ topico.autor.username }}</strong>
-                <small>Postado em {{ topico.data_criacao.strftime('%d/%m/%Y às %H:%M') }}</small>
+                <strong>{{ topico['autor_username'] }}</strong>
+                <small>Postado em {{ topico['data_criacao'] | format_datetime }}</small>
             </div>
         </div>
         <div class="post-body">
@@ -25,10 +26,10 @@
         {% for post in posts %}
             <div class="card post">
                  <div class="post-header">
-                    <img src="{{ url_for('static', filename='profile_pics/' + post.autor.image_file) }}" class="post-author-img">
+                    <img src="{{ url_for('static', filename='profile_pics/' + post['autor_image_file']) }}" class="post-author-img">
                     <div class="post-author-info">
-                        <strong>{{ post.autor.username }}</strong>
-                        <small>Postado em {{ post.data_criacao.strftime('%d/%m/%Y às %H:%M') }}</small>
+                        <strong>{{ post['autor_username'] }}</strong>
+                        <small>Postado em {{ post['data_criacao'] | format_datetime }}</small>
                     </div>
                 </div>
                 <div class="post-body">
@@ -50,4 +51,3 @@
         </form>
     </div>
 {% endblock %}
-```html

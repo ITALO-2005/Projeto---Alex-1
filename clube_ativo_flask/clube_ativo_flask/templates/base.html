@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
@@ -58,22 +58,22 @@
     <header class="header">
         <div class="container">
             <nav class="navbar">
-                <a class="navbar-brand" href="{{ url_for('noticias') if current_user_data else url_for('login') }}">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
                     <i class="fas fa-satellite-dish"></i> <strong>Hub</strong> Comunitário
                 </a>
                 <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
                     <span></span> <span></span> <span></span>
                 </button>
                 <div class="nav-links" id="nav-links">
-                    {% if current_user_data %}
+                    {% if g.user %}
                         <a class="nav-item" href="{{ url_for('noticias') }}">Notícias</a>
                         <a class="nav-item" href="{{ url_for('clubes') }}">Clubes</a>
                         <a class="nav-item" href="{{ url_for('ranking') }}">Ranking</a>
                         <a class="nav-item" href="{{ url_for('hub_servicos') }}">Hub de Serviços</a>
                         <div class="nav-item user-menu">
                              <a class="user-menu-trigger" href="#">
-                                 <img src="{{ url_for('static', filename='profile_pics/' + current_user_data.image_file) }}" class="nav-profile-image">
-                                 <span>{{ current_user_data.username }}</span> <i class="fas fa-chevron-down dropdown-icon"></i>
+                                 <img src="{{ url_for('static', filename='profile_pics/' + g.user['image_file']) }}" class="nav-profile-image">
+                                 <span>{{ g.user['username'] }}</span> <i class="fas fa-chevron-down dropdown-icon"></i>
                              </a>
                             <div class="user-dropdown">
                                 <a class="dropdown-item" href="{{ url_for('account') }}"><i class="fas fa-user-circle"></i> Minha Conta</a>

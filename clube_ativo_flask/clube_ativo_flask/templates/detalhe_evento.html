@@ -10,11 +10,13 @@
             <p class="lead">{{ evento.descricao }}</p>
             <hr>
             <div class="details-footer">
-                <p><strong><i class="fas fa-users"></i> Vagas restantes:</strong> <span class="vagas-badge-lg">{{ evento.vagas_restantes }}</span></p>
+                <!-- CORRIGIDO: Usando a variável 'vagas_restantes' -->
+                <p><strong><i class="fas fa-users"></i> Vagas restantes:</strong> <span class="vagas-badge-lg">{{ vagas_restantes }}</span></p>
                 
                 {% if ja_inscrito %}
                     <button class="btn btn-secondary" disabled><i class="fas fa-check-circle"></i> Você já está inscrito</button>
-                {% elif evento.vagas_restantes > 0 %}
+                <!-- CORRIGIDO: Usando a variável 'vagas_restantes' -->
+                {% elif vagas_restantes > 0 %}
                     <form action="{{ url_for('inscrever_evento', evento_id=evento.id) }}" method="post" class="inline-form">
                         <button type="submit" class="btn"><i class="fas fa-user-plus"></i> Inscrever-se Agora</button>
                     </form>

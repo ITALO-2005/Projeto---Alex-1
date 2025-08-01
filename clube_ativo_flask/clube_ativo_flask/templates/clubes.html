@@ -11,7 +11,8 @@
                     <p class="text-muted">{{ clube.descricao|truncate(120) }}</p>
                     <div class="card-footer">
                         <span><i class="fas fa-tag"></i> {{ clube.categoria }}</span>
-                        <span class="vagas-badge"><i class="fas fa-users"></i> {{ clube.membros.count() }} Membros</span>
+                        <!-- CORRIGIDO: Acedendo à contagem de membros como um item de dicionário -->
+                        <span class="vagas-badge"><i class="fas fa-users"></i> {{ clube['member_count'] }} Membros</span>
                     </div>
                 </div>
             </a>

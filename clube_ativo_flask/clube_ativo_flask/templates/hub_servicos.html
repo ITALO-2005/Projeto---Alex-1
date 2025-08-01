@@ -18,7 +18,8 @@
             <p>Confira as datas importantes, feriados e eventos do semestre.</p>
         </a>
 
-        <div class="card hub-card hub-link disabled"> <div class="hub-card-icon"><i class="fas fa-book"></i></div>
+        <div class="card hub-card hub-link disabled">
+            <div class="hub-card-icon"><i class="fas fa-book"></i></div>
             <h3>Acervo da Biblioteca</h3>
             <p>Acesse o sistema da biblioteca para pesquisar livros e fazer reservas. (Em breve)</p>
         </div>
@@ -27,10 +28,11 @@
     <div class="card" style="margin-top: 2rem;">
         <div class="card-header"><h4><i class="fas fa-calendar-check"></i> Próximos Eventos</h4></div>
         <div class="card-body">
-            {% if eventos_futuros and eventos_futuros|length > 0 %}
+            {% if eventos_futuros %}
                 <ul class="simple-list">
                 {% for evento in eventos_futuros %}
-                    <li><a href="{{ url_for('detalhe_evento', evento_id=evento.id) }}">{{ evento.titulo }}</a> <small>({{ evento.data_evento.strftime('%d/%m') }})</small></li>
+                    <!-- CORRIGIDO: Usando o filtro 'format_date_short' -->
+                    <li><a href="{{ url_for('detalhe_evento', evento_id=evento.id) }}">{{ evento.titulo }}</a> <small>({{ evento.data_evento | format_date_short }})</small></li>
                 {% endfor %}
                 </ul>
                 <a href="{{ url_for('eventos') }}" class="btn" style="margin-top: 1rem;">Ver Todos os Eventos</a>

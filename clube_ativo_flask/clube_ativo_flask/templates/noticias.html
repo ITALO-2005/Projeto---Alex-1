@@ -9,9 +9,9 @@
                 <div class="card-body">
                     <h3>{{ noticia.titulo }}</h3>
                     <div class="news-meta">
-                        <span><i class="fas fa-calendar-alt"></i> {{ noticia.data_publicacao.strftime('%d de %b de %Y') }}</span>
-                        {% if noticia.evento %}
-                        <span><i class="fas fa-chalkboard"></i> <a href="{{ url_for('detalhe_evento', evento_id=noticia.evento.id) }}">{{ noticia.evento.titulo }}</a></span>
+                        <span><i class="fas fa-calendar-alt"></i> {{ noticia.data_publicacao | format_date_full }}</span>
+                        {% if noticia.evento_id %}
+                        <span><i class="fas fa-chalkboard"></i> <a href="{{ url_for('detalhe_evento', evento_id=noticia.evento_id) }}">{{ noticia.evento_titulo }}</a></span>
                         {% endif %}
                     </div>
                     <p>{{ noticia.conteudo }}</p>
