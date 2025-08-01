@@ -12,7 +12,6 @@
         <div class="card">
             <div class="card-header"><h4>Atualizar Foto</h4></div>
             <div class="card-body">
-                <!-- Este formulário agora envia para a rota /account -->
                 <form action="{{ url_for('account') }}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="picture">Escolher nova foto:</label>
@@ -45,38 +44,45 @@
             </div>
         </div>
 
-        <!-- Formulário de Alterar Senha -->
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header"><h4><i class="fas fa-shield-alt"></i> Meus Selos</h4></div>
+            <div class="card-body">
+                {% if current_user_data.badges.count() > 0 %}
+                    <div class="badges-grid">
+                        {% for badge in current_user_data.badges.all() %}
+                            <div class="badge-item" title="{{ badge.descricao }}">
+                                <i class="{{ badge.icon_class }} fa-2x"></i>
+                                <span>{{ badge.nome }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <p>Você ainda não desbloqueou nenhum selo.</p>
+                        <p class="text-muted">Participe dos clubes e eventos para ganhar!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="card" style="margin-top: 2rem;">
             <div class="card-header"><h4>Alterar Senha</h4></div>
             <div class="card-body">
                 <form action="{{ url_for('change_password') }}" method="POST">
-                    <div class="form-group">
-                        <label for="old_password">Senha Antiga</label>
-                        <input type="password" name="old_password" id="old_password" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="new_password">Nova Senha</label>
-                        <input type="password" name="new_password" id="new_password" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm_password">Confirmar Nova Senha</label>
-                        <input type="password" name="confirm_password" id="confirm_password" class="form-input" required>
-                    </div>
+                    <div class="form-group"><label for="old_password">Senha Antiga</label><input type="password" name="old_password" id="old_password" class="form-input" required></div>
+                    <div class="form-group"><label for="new_password">Nova Senha</label><input type="password" name="new_password" id="new_password" class="form-input" required></div>
+                    <div class="form-group"><label for="confirm_password">Confirmar Nova Senha</label><input type="password" name="confirm_password" id="confirm_password" class="form-input" required></div>
                     <button type="submit" class="btn">Salvar Nova Senha</button>
                 </form>
             </div>
         </div>
 
-        <!-- Formulário de Excluir Conta -->
         <div class="card" style="margin-top: 2rem; border: 2px solid #e74c3c;">
             <div class="card-header"><h4>Zona de Perigo</h4></div>
             <div class="card-body">
                 <p class="text-muted">A exclusão da sua conta é uma ação permanente e não pode ser desfeita.</p>
                 <form action="{{ url_for('delete_account') }}" method="POST" onsubmit="return confirm('Tem certeza absoluta que deseja excluir sua conta? Esta ação é irreversível.');">
-                     <div class="form-group">
-                        <label for="password_delete">Digite sua senha para confirmar</label>
-                        <input type="password" name="password" id="password_delete" class="form-input" required>
-                    </div>
+                    <div class="form-group"><label for="password_delete">Digite sua senha para confirmar</label><input type="password" name="password" id="password_delete" class="form-input" required></div>
                     <button type="submit" class="btn btn-danger">Excluir Minha Conta Permanentemente</button>
                 </form>
             </div>
