@@ -405,7 +405,6 @@ def seed_db_command():
     ]
     db.executemany("INSERT INTO noticia (titulo, conteudo, data_publicacao, evento_id) VALUES (?, ?, ?, ?)", noticias)
 
-    # CORRIGIDO: Adicionando dados para o cardápio e calendário
     hoje = date.today()
     start_of_week = hoje - timedelta(days=hoje.weekday())
     cardapio_data = []
