@@ -159,8 +159,6 @@ def register():
                 flash(f"Utilizador {username} ou email {email} já registado.", 'danger')
     return render_template('register.html')
 
-# (O resto das rotas permanece igual, apenas a rota account e o seed-db mudaram significativamente)
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if g.user: return redirect(url_for('noticias'))
@@ -387,8 +385,7 @@ def seed_db_command():
     membros = [(1, 1), (2, 1), (2, 2), (3, 2), (1, 4), (2, 5)]
     db.executemany("INSERT INTO membros_clube (user_id, clube_id) VALUES (?, ?)", membros)
 
-    # CORRIGIDO: Atribuindo selos aos utilizadores de exemplo
-    user_badges = [(1, 1), (2, 1), (2, 2), (3, 1)] # (user_id, badge_id)
+    user_badges = [(1, 1), (2, 1), (2, 2), (3, 1)]
     db.executemany("INSERT INTO user_badges (user_id, badge_id) VALUES (?, ?)", user_badges)
 
     agora = datetime.now(timezone.utc)
@@ -407,6 +404,28 @@ def seed_db_command():
         ('Novo Horário da Biblioteca', 'Atenção, a biblioteca funcionará em horário estendido.', (agora - timedelta(days=5)).isoformat(), None),
     ]
     db.executemany("INSERT INTO noticia (titulo, conteudo, data_publicacao, evento_id) VALUES (?, ?, ?, ?)", noticias)
+
+    # CORRIGIDO: Adicionando dados para o cardápio e calendário
+    hoje = date.today()
+    start_of_week = hoje - timedelta(days=hoje.weekday())
+    cardapio_data = []
+    for i in range(5):
+        menu_date = start_of_week + timedelta(days=i)
+        cardapio_data.append(
+            (menu_date.isoformat(), 'Frango Grelhado com Arroz e Feijão', 'Torta de Legumes', 'Batata Doce Assada', 'Mix de Folhas com Tomate', 'Fruta da Estação')
+        )
+    db.executemany("INSERT INTO cardapio_ru (data, prato_principal, vegetariano, acompanhamento, salada, sobremesa) VALUES (?, ?, ?, ?, ?, ?)", cardapio_data)
+
+    calendario_data = [
+        (date(2025, 8, 15).isoformat(), "Início do Semestre Letivo 2025.2", "Acadêmico"),
+        (date(2025, 9, 7).isoformat(), "Feriado Nacional - Independência do Brasil", "Feriado"),
+        (date(2025, 10, 12).isoformat(), "Feriado Nacional - Nossa Senhora Aparecida", "Feriado"),
+        (date(2025, 10, 15).isoformat(), "Feriado - Dia do Professor", "Feriado"),
+        (date(2025, 11, 2).isoformat(), "Feriado - Finados", "Feriado"),
+        (date(2025, 11, 15).isoformat(), "Feriado - Proclamação da República", "Feriado"),
+        (date(2025, 12, 20).isoformat(), "Fim do Semestre Letivo 2025.2", "Acadêmico")
+    ]
+    db.executemany("INSERT INTO calendario_academico (data, descricao, tipo) VALUES (?, ?, ?)", calendario_data)
 
     db.commit()
     print("Base de dados populada com sucesso!")

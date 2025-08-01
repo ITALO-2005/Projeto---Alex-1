@@ -12,7 +12,8 @@
                 {% for evento in eventos %}
                     <li class="list-item">
                         <div>
-                            <strong>{{ evento.data.strftime('%d/%m/%Y') }}</strong> - {{ evento.descricao }}
+                            
+                            <strong>{{ evento.data | format_date }}</strong> - {{ evento.descricao }}
                         </div>
                         <span class="vagas-badge">{{ evento.tipo }}</span>
                     </li>
